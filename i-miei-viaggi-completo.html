@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I miei Viaggi - Esperienze di viaggio autentiche</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Header e Navigation */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #ffd700;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 70px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Container principale */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+
+        /* Cards delle destinazioni */
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .destination-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .card-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .read-more {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .read-more:hover {
+            color: #764ba2;
+        }
+
+        /* Sezione dettagliata Trapani */
+        .trapani-section {
+            background: white;
+            margin: 2rem 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .trapani-hero {
+            height: 400px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Trapani%2C_le_saline%2C_le_isole_di_Favignana_e_Levanzo_da_Erice.jpg/1200px-Trapani%2C_le_saline%2C_le_isole_di_Favignana_e_Levanzo_da_Erice.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .trapani-hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .trapani-content {
+            padding: 3rem;
+        }
+
+        .attractions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .attraction-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .attraction-card h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .attraction-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        /* Recensioni */
+        .reviews-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .review {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #ffd700;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+
+        .stars {
+            color: #ffd700;
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Mappa */
+        .map-container {
+            margin: 2rem 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .map {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+
+        /* Consigli pratici */
+        .tips-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .tip-card {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tip-card i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trapani-hero h2 {
+                font-size: 2rem;
+            }
+
+            .trapani-content {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animazioni */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <i class="fas fa-globe-americas"></i> I miei Viaggi
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#destinazioni">Destinazioni</a></li>
+                    <li><a href="#trapani">Trapani</a></li>
+                    <li><a href="#consigli">Consigli</a></li>
+                    <li><a href="#contatti">Contatti</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Scopri il Mondo con Me</h1>
+            <p>Esperienze autentiche, consigli pratici e ispirazione per i tuoi prossimi viaggi. Dalle spiagge cristalline della Sicilia alle capitali europee.</p>
+            <a href="#destinazioni" class="cta-button">
+                <i class="fas fa-compass"></i> Esplora le Destinazioni
+            </a>
+        </div>
+    </section>
+
+    <!-- Sezione Destinazioni -->
+    <section id="destinazioni" class="section">
+        <div class="container">
+            <h2 class="section-title">Le Mie Destinazioni</h2>
+            <div class="destinations-grid">
+                <div class="destination-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1555992336-fb0d29498b13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Trapani" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Trapani, Sicilia</h3>
+                        <p class="card-description">Saline al tramonto, isole Egadi e borghi medievali. Una perla della Sicilia occidentale.</p>
+                        <div class="card-tags">
+                            <span class="tag">Mare</span>
+                            <span class="tag">Storia</span>
+                            <span class="tag">Gastronomia</span>
+                            <span class="tag">Isole</span>
+                        </div>
+                        <a href="#trapani" class="read-more">
+                            Leggi la guida completa <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="destination-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Roma" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Roma, Lazio</h3>
+                        <p class="card-description">La Città Eterna tra Colosseo, Vaticano e tradizioni culinarie millenarie.</p>
+                        <div class="card-tags">
+                            <span class="tag">Storia</span>
+                            <span class="tag">Arte</span>
+                            <span class="tag">Cultura</span>
+                        </div>
+                        <a href="#roma" class="read-more">
+                            Prossimamente <i class="fas fa-clock"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="destination-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1502602898536-47ad22581b52?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Parigi" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Parigi, Francia</h3>
+                        <p class="card-description">La Ville Lumière tra Torre Eiffel, Louvre e atmosfere romantiche.</p>
+                        <div class="card-tags">
+                            <span class="tag">Romantico</span>
+                            <span class="tag">Arte</span>
+                            <span class="tag">Moda</span>
+                        </div>
+                        <a href="#parigi" class="read-more">
+                            Prossimamente <i class="fas fa-clock"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione Trapani Dettagliata -->
+    <section id="trapani" class="section">
+        <div class="container">
+            <div class="trapani-section">
+                <div class="trapani-hero">
+                    <div>
+                        <h2>Trapani, Sicilia</h2>
+                        <p>La città del sale e della vela</p>
+                    </div>
+                </div>
+
+                <div class="trapani-content">
+                    <p style="font-size: 1.2rem; text-align: center; margin-bottom: 3rem; color: #666;">
+                        Trapani è una perla della Sicilia occidentale, dove storia millenaria, mare cristallino e tradizioni culinarie si fondono in un'esperienza indimenticabile. Dalle saline al tramonto alle isole Egadi, ogni angolo racconta una storia.
+                    </p>
+
+                    <h3 style="color: #2c3e50; margin-bottom: 2rem; font-size: 2rem;">🏛️ Cosa Vedere</h3>
+                    <div class="attractions-grid">
+                        <div class="attraction-card">
+                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Erice">
+                            <h4>Erice - Il Borgo Medievale</h4>
+                            <p>Arroccato a 750 metri, offre panorami mozzafiato su Trapani e le Egadi. Raggiungibile in funivia, custodisce il Castello di Venere e la famosa pasticceria di Maria Grammatico.</p>
+                        </div>
+
+                        <div class="attraction-card">
+                            <img src="https://images.unsplash.com/photo-1590736969955-71cc94901144?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Saline">
+                            <h4>Saline di Trapani e Paceco</h4>
+                            <p>Riserva naturale con antichi mulini a vento. I tramonti qui sono spettacolari, con riflessi rosa e arancioni sull'acqua. Visita guidata al museo del sale inclusa.</p>
+                        </div>
+
+                        <div class="attraction-card">
+                            <img src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Centro Storico">
+                            <h4>Centro Storico</h4>
+                            <p>Torre di Ligny, Basilica di San Lorenzo, Museo Pepoli. Passeggia tra Via Garibaldi e Corso Vittorio Emanuele per immergerti nella storia.</p>
+                        </div>
+
+                        <div class="attraction-card">
+                            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Isole Egadi">
+                            <h4>Isole Egadi</h4>
+                            <p>Favignana con Cala Rossa, Levanzo con la Grotta del Genovese, Marettimo per trekking e immersioni. Traghetti giornalieri dal porto di Trapani.</p>
+                        </div>
+                    </div>
+
+                    <h3 style="color: #2c3e50; margin: 3rem 0 2rem 0; font-size: 2rem;">🏖️ Le Spiagge Più Belle</h3>
+                    <div class="attractions-grid">
+                        <div class="attraction-card">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Lido San Giuliano">
+                            <h4>Lido San Giuliano</h4>
+                            <p>Spiaggia attrezzata ideale per famiglie, con acqua cristallina e servizi completi. A 20 minuti a piedi dal centro.</p>
+                        </div>
+
+                        <div class="attraction-card">
+                            <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cala Rossa">
+                            <h4>Cala Rossa (Favignana)</h4>
+                            <p>Una delle spiagge più belle d'Italia. Acqua turchese, scogliere bianche e fondali perfetti per lo snorkeling.</p>
+                        </div>
+                    </div>
+
+                    <h3 style="color: #2c3e50; margin: 3rem 0 2rem 0; font-size: 2rem;">🍽️ Ristoranti Consigliati</h3>
+                    <div class="attractions-grid">
+                        <div class="attraction-card">
+                            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Osteria La Bettolaccia">
+                            <h4>Osteria La Bettolaccia</h4>
+                            <p>Cucina tipica siciliana, ottimo rapporto qualità-prezzo. Specialità: busiata trapanese e pesce fresco. Prenotazione consigliata.</p>
+                        </div>
+
+                        <div class="attraction-card">
+                            <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Trattoria del Corso">
+                            <h4>Trattoria del Corso</h4>
+                            <p>Ambiente familiare, specialità di pesce. Prova il cous cous di pesce, piatto simbolo di Trapani. Prezzi accessibili.</p>
+                        </div>
+
+                        <div class="attraction-card">
+                            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pasticceria Maria Grammatico">
+                            <h4>Pasticceria Maria Grammatico (Erice)</h4>
+                            <p>Dolci tradizionali siciliani: cannoli, cassate, marzapane. Un'istituzione dal 1963. Assolutamente da provare!</p>
+                        </div>
+                    </div>
+
+                    <!-- Recensioni -->
+                    <div class="reviews-section">
+                        <h3 style="color: #2c3e50; margin-bottom: 1.5rem; font-size: 2rem;">⭐ Recensioni dei Viaggiatori</h3>
+
+                        <div class="review">
+                            <div class="review-header">
+                                <span class="reviewer-name">Giulia R.</span>
+                                <div class="stars">⭐⭐⭐⭐⭐</div>
+                            </div>
+                            <p>"Trapani mi ha sorpreso! La funivia per Erice è un'esperienza unica, e una giornata a Favignana è d'obbligo. La cucina locale è superlativa, soprattutto il cous cous di pesce."</p>
+                        </div>
+
+                        <div class="review">
+                            <div class="review-header">
+                                <span class="reviewer-name">Marco L.</span>
+                                <div class="stars">⭐⭐⭐⭐⭐</div>
+                            </div>
+                            <p>"Le saline al tramonto sono magiche, uno spettacolo che non dimenticherò mai. Spiagge pulite, mare cristallino e gente accogliente. Tornerò sicuramente!"</p>
+                        </div>
+
+                        <div class="review">
+                            <div class="review-header">
+                                <span class="reviewer-name">Anna S.</span>
+                                <div class="stars">⭐⭐⭐⭐⭐</div>
+                            </div>
+                            <p>"Perfetta per un weekend lungo. Erice è un gioiello, le Egadi paradisiache. Consiglio di noleggiare una bici a Favignana per esplorare tutte le calette."</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery -->
+                    <h3 style="color: #2c3e50; margin: 3rem 0 2rem 0; font-size: 2rem;">📸 Gallery</h3>
+                    <div class="gallery">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Erice panorama">
+                        <img src="https://images.unsplash.com/photo-1590736969955-71cc94901144?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Saline tramonto">
+                        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Cala Rossa">
+                        <img src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Centro storico">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Favignana">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Spiaggia">
+                    </div>
+
+                    <!-- Mappa -->
+                    <h3 style="color: #2c3e50; margin: 3rem 0 2rem 0; font-size: 2rem;">🗺️ Mappa Interattiva</h3>
+                    <div class="map-container">
+                        <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50234.89394777!2d12.4663!3d38.0176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x131b5c0e7c8b7c7b%3A0x7b8b8b8b8b8b8b8b!2sTrapani%2C%20TP%2C%20Italy!5e0!3m2!1sen!2sit!4v1234567890" allowfullscreen></iframe>
+                    </div>
+
+                    <!-- Consigli Pratici -->
+                    <div class="tips-section">
+                        <h3 style="margin-bottom: 1.5rem; font-size: 2rem;">💡 Consigli Pratici</h3>
+                        <div class="tips-grid">
+                            <div class="tip-card">
+                                <i class="fas fa-calendar-alt"></i>
+                                <h4>Quando Andare</h4>
+                                <p>Maggio-ottobre per il mare. Marzo-maggio e settembre-novembre per visite culturali.</p>
+                            </div>
+
+                            <div class="tip-card">
+                                <i class="fas fa-car"></i>
+                                <h4>Come Muoversi</h4>
+                                <p>Auto consigliata per i dintorni. Funivia per Erice, traghetti per le Egadi dal porto.</p>
+                            </div>
+
+                            <div class="tip-card">
+                                <i class="fas fa-utensils"></i>
+                                <h4>Cosa Mangiare</h4>
+                                <p>Cous cous di pesce, busiata trapanese, cannoli, cassate e granite siciliane.</p>
+                            </div>
+
+                            <div class="tip-card">
+                                <i class="fas fa-shopping-bag"></i>
+                                <h4>Shopping</h4>
+                                <p>Via Fardella per boutique, mercato del pesce per l'atmosfera locale, sale delle saline come souvenir.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione Consigli -->
+    <section id="consigli" class="section" style="background: white;">
+        <div class="container">
+            <h2 class="section-title">Consigli di Viaggio</h2>
+            <div class="attractions-grid">
+                <div class="attraction-card">
+                    <i class="fas fa-plane" style="font-size: 2rem; color: #667eea; margin-bottom: 1rem;"></i>
+                    <h4>Pianificazione</h4>
+                    <p>Prenota voli e alloggi in anticipo, soprattutto in alta stagione. Controlla sempre le condizioni meteo.</p>
+                </div>
+
+                <div class="attraction-card">
+                    <i class="fas fa-map-marked-alt" style="font-size: 2rem; color: #667eea; margin-bottom: 1rem;"></i>
+                    <h4>Itinerari</h4>
+                    <p>Scarica mappe offline, pianifica gli spostamenti e lascia sempre tempo per l'imprevisto.</p>
+                </div>
+
+                <div class="attraction-card">
+                    <i class="fas fa-camera" style="font-size: 2rem; color: #667eea; margin-bottom: 1rem;"></i>
+                    <h4>Fotografia</h4>
+                    <p>Golden hour per le foto migliori, rispetta i luoghi e le persone, porta batterie di riserva.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contatti" class="footer">
+        <div class="container">
+            <h3>Contatti</h3>
+            <p>Per collaborazioni, suggerimenti o domande:</p>
+            <p><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b4dddad2dbf4ddd9ddd1ddc2ddd5d3d3dd9addc0">[email&#160;protected]</a></p>
+            <p><i class="fas fa-phone"></i> +39 123 456 7890</p>
+            <div style="margin-top: 2rem;">
+                <a href="#" style="color: white; margin: 0 1rem; font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+                <a href="#" style="color: white; margin: 0 1rem; font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
+                <a href="#" style="color: white; margin: 0 1rem; font-size: 1.5rem;"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p style="margin-top: 2rem; opacity: 0.7;">&copy; 2025 I miei Viaggi. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Smooth scrolling per i link di navigazione
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animazione fade-in al scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.destination-card, .attraction-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
